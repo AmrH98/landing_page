@@ -4,3 +4,4 @@ node_modules/
 bower_components/
 package-lock.json
 package.json
+/js/app_temp.js

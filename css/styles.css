@@ -1,12 +1,3 @@
-/*
- *
- * 
- * To learn more, visit: http://smacss.com/
- *
- *
- * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
- *
-*/
 
 
 /* ---- Base Rules ---- */
@@ -45,6 +36,12 @@ p {
     color: #eee;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
+
 /* ---- Layout Rules ---- */
 main {
     margin: 10vh 1em 10vh;
@@ -65,14 +62,16 @@ section {
 
 /* Navigation Styles*/
 .navbar__menu ul {
-    padding-left: 0;
+    padding-left: ;
     margin: 0;
-    text-align: right;
+    text-decoration: none;
+    text-align: left;
 }
 
 .navbar__menu li {
     display: inline-block;
 }
+
 
 .navbar__menu .menu__link {
     display: block;
@@ -220,4 +219,69 @@ section.your-active-class .landing__container::after {
 		           translate(-1em)
 		           rotate(-360deg);
 	}
+}
+
+
+/* Style the navbar */
+#navbar {
+  /* overflow: hidden; */
+  /* background-color: grey; */
+}
+
+/* Navbar links */
+#navbar a {
+  /* float: left;
+  display: inline-block;
+  /* color: red; */
+  /* text-align: center; */
+  /* padding: 14px; */
+  /* text-decoration: none; */ */
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+.page__header{
+  background-color: midnightblue;
+  min-height: 50px;
+  border-bottom: 2px solid black;
+  display: flex;
+  /* justify-content: flex-end; */
+  z-index: 10;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 15px;
+  list-style: none;
+}
+
+.content {
+  padding: 10px;
+}
+
+.section-button {
+  margin: 0 auto;
+  color: grey;
+  display: block;
 }
