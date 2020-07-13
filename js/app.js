@@ -12,67 +12,79 @@ function create_nav() {
     let li_item = document.createElement("li");
     let li_text = document.createTextNode(section_text);
     let li_id = "list" + i;
+    // let li_link = `<a href="#${select_text}">${select_text}</a>`
     // add attributes
+
     li_item.setAttribute("id", li_id);
     li_item.setAttribute("class", "nav-item");
+    // li_item.innerHTML += `<a href="#${select_text}">${select_text}</a>`;
     // add list content
-    li_item.innerHTML += section_text;
+    li_item.innerHTML += `<a href="#${section_text}">${section_text}</a>`;
 
     // add to navbar
     nav_ul.appendChild(li_item);
-    //
-    let btn_target = document.getElementById("section"+ i );
+
+    let btn_target = document.getElementById("section"+ 1 );
     let nav_btn = document.getElementById(li_id);
     let btn_id = "button" + i;
     let btn_add = document.getElementById(btn_id);
 
-    // add button
-    // li_id.addEventListener("click", function() {
-    //   btn_target.scrollIntoView ({
-    //     behavior: 'smooth'}
-    //   )
-    //   btn_add.innerHTML +=
-    //     "<button class='section-button' onclick='go_top()'>Return to Top</button>";
-    // });
+
   }
 }
 create_nav();
 
-const scroll_top = () => { //scroll_top
-  const scroll = document.documentElement.scrollTop || document.body.scrollTop;
-  if (scroll > 0) {
-    window.requestAnimationFrame(scroll_top);
-    window.scrollTo(0, scroll - scroll / 50);
+// navbar scroll view
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-50px";
   }
+  prevScrollpos = currentScrollPos;
+}
+//button code
+//Get the button:
+mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()
 };
 
-function go_top() { //go_top
-scroll_top();
-
-  for (i = 1; i < section_count + 1; i++) {
-    let btn_delete = document.getElementById("button" + i);
-    btn_delete.innerHTML = "";
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
   }
 }
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+
+
 
 function check_view() { //check_view
   let in_view = function(elem) { //in_view
     let bound = elem.getBoundingClientRect(); //bound
     return (
-      bound.top <= 50 &&
-      bound.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      bounding.right <=
-        (window.innerWidth || document.documentElement.clientWidth)
+      bound.top >= 0 &&
+      bound.left >= 0 &&
+      bound.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      bound.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   };
 
   for (i = 1; i < section_count + 1; i++) {
     let section_view = document.getElementById("section" + i); //section_full
 
-    window.addEventListener(
-      "scroll",
-      function(event) {
+    window.addEventListener("scroll", function(event) {
         if (in_view(section_view)) {
           section_view.classList.add("your-active-class");
         } else {
