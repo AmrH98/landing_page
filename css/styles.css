@@ -288,14 +288,6 @@ section.your-active-class .landing__container::after {
   padding-top: 60px;
 }
 
-/* .page__header{
-  background-color: midnightblue;
-  min-height: 50px;
-  border-bottom: 2px solid black; */
-  /* display: flex; */
-  /* justify-content: flex-end; */
-  /* z-index: 10; */
-/* } */
 
 .row {
   display: flex;
