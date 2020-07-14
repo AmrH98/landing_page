@@ -17,18 +17,13 @@ function create_nav() {
 
     li_item.setAttribute("id", li_id);
     li_item.setAttribute("class", "nav-item");
-    // li_item.innerHTML += `<a href="#${select_text}">${select_text}</a>`;
+    li_item.setAttribute("data-id", "section"+i);
     // add list content
-    li_item.innerHTML += `<a href="#${section_text}">${section_text}</a>`;
+    // li_item.innerHTML += `<a href="#${section_text}">${section_text}</a>`;
+    li_item.innerHTML += `${section_text}`;
 
     // add to navbar
     nav_ul.appendChild(li_item);
-
-    let btn_target = document.getElementById("section"+ 1 );
-    let nav_btn = document.getElementById(li_id);
-    let btn_id = "button" + i;
-    let btn_add = document.getElementById(btn_id);
-
 
   }
 }
@@ -49,9 +44,7 @@ function nav_scroll() {
 //Get the button:
 mybutton = document.getElementById("myBtn");
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function go_top() {scrollFunction()
-};
+// When the user scrolls down 350px from the top of the document, show the button
 
 function scrollFunction() {
   if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
@@ -101,3 +94,20 @@ function check_view() { //check_view
   }
 }
 check_view();
+
+
+// function to navigate to targeted section
+
+
+var get_target = function() {
+  document.onclick = function(e) {
+    if (e.target.tagName == 'LI') {
+      var id = e.target.getAttribute("data-id");
+    }
+    let anchor = document.getElementById(id);
+    anchor.scrollIntoView ({
+        behavior: 'smooth'} )
+  }
+}
+
+get_target()

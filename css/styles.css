@@ -78,7 +78,7 @@ section {
   /* border-bottom: 2px solid #333; */
 }
 
-#navbar a {
+#navbar li {
   float: left;
   display: block;
   color: white;
@@ -87,7 +87,14 @@ section {
   text-decoration: none;
 }
 
-#navbar a:hover {
+#navbar li:hover {
+  /* background-color: #ddd; */
+  color: lightblue;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#navbar a :hover {
   /* background-color: #ddd; */
   color: lightblue;
   opacity: 0.8;
