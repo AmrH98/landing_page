@@ -1,33 +1,9 @@
 
 let nav_ul = document.getElementById("navbar__list");
-// number of sections in the webpage
-let section_count = document.getElementsByClassName("landing__container").length;
 
-// loop through sections get section name and add to navbar
-function create_nav() {
-  for (i = 1; i < section_count + 1; i++) {
-    let section_name = "#title" + i;
-    let select_section = document.querySelector(section_name);
-    let section_text = select_section.textContent;
-    let li_item = document.createElement("li");
-    let li_text = document.createTextNode(section_text);
-    let li_id = "list" + i;
-    // let li_link = `<a href="#${select_text}">${select_text}</a>`
-    // add attributes
+//add menu item names here
+const menu_items = ["About", "Achievements", "Product", "Service", "Contact Us"];
 
-    li_item.setAttribute("id", li_id);
-    li_item.setAttribute("class", "nav-item");
-    li_item.setAttribute("data-id", "section"+i);
-    // add list content
-    // li_item.innerHTML += `<a href="#${section_text}">${section_text}</a>`;
-    li_item.innerHTML += `${section_text}`;
-
-    // add to navbar
-    nav_ul.appendChild(li_item);
-
-  }
-}
-create_nav();
 
 // navbar scroll view
 var prevScrollpos = window.pageYOffset;
@@ -67,33 +43,29 @@ window.onscroll = function() {
 
 
 
-
-function check_view() { //check_view
-  let in_view = function(elem) { //in_view
-    let bound = elem.getBoundingClientRect(); //bound
-    return (
-      bound.top >= 0 &&
-      bound.left >= 0 &&
-      bound.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      bound.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
-  for (i = 1; i < section_count + 1; i++) {
-    let section_view = document.getElementById("section" + i); //section_full
-
-    window.addEventListener("scroll", function(event) {
-        if (in_view(section_view)) {
-          section_view.classList.add("your-active-class");
-        } else {
-          section_view.classList.remove("your-active-class");
-        }
-      },
-      false
-    );
+function check_viewport() { // LAST EDITING 
+  let in_view = function(elem) {
+   let bound = elem.getBoundingClientRect();
+   return (
+        bound.top >= 0 &&
+        bound.left >= 0 &&
+        bound.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        bound.right <= (window.innerWidth || document.documentElement.clientWidth)
+   );
+ };
+//all available sections to be active
+  let j = 0;
+  for (let item of menu_items){
+    j = j + 1;
+    let section_active = document.getElementsByClassName("temp");
+    window.addEventListener("scroll", function(event){
+      if(in_view(item)){
+        section_active[j].classList.add("your-active-class")
+      }
+    }, false);
   }
 }
-check_view();
+check_viewport();
 
 
 // function to navigate to targeted section
@@ -102,12 +74,25 @@ check_view();
 var get_target = function() {
   document.onclick = function(e) {
     if (e.target.tagName == 'LI') {
-      var id = e.target.getAttribute("data-id");
+      var target_id = e.target.getAttribute("data-id");
+      // alert(target_id);
+      let anchor = document.getElementById(target_id);
+      anchor.scrollIntoView ({
+          behavior: 'smooth'} )
     }
-    let anchor = document.getElementById(id);
-    anchor.scrollIntoView ({
-        behavior: 'smooth'} )
   }
 }
-
 get_target()
+
+// loop through array and create navbar
+let i = 0;
+for (let item of menu_items){
+    // create unordered list and add to navbar 'ul'
+    i = i + 1;
+    let li_item = document.createElement("li");
+    li_item.id = "list" + i;
+    li_item.className = "nav-item";
+    li_item.innerHTML += item;
+    li_item.setAttribute("data-id", item);
+    nav_ul.appendChild(li_item);
+}
