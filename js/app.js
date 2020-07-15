@@ -4,6 +4,18 @@ let nav_ul = document.getElementById("navbar__list");
 //add menu item names here
 const menu_items = ["About", "Achievements", "Product", "Service", "Contact Us"];
 
+// loop through array and create navbar
+let i = 0;
+for (let item of menu_items){
+    // create unordered list and add to navbar 'ul'
+    i = i + 1;
+    let li_item = document.createElement("li");
+    li_item.id = "list" + i;
+    li_item.className = "nav-item";
+    li_item.innerHTML += item;
+    li_item.setAttribute("data-id", item);
+    nav_ul.appendChild(li_item);
+}
 
 // navbar scroll view
 var prevScrollpos = window.pageYOffset;
@@ -42,27 +54,26 @@ window.onscroll = function() {
 }
 
 
+// used this source to help complete isInViewport function: https://vanillajstoolkit.com/helpers/isinviewport/
+function check_viewport() {
+  var isInViewport = function (elem) {
+	var distance = elem.getBoundingClientRect();
+	return (
+		distance.top >= 70 &&
+		distance.left >= 0 &&
+		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+};
 
-function check_viewport() { // LAST EDITING 
-  let in_view = function(elem) {
-   let bound = elem.getBoundingClientRect();
-   return (
-        bound.top >= 0 &&
-        bound.left >= 0 &&
-        bound.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        bound.right <= (window.innerWidth || document.documentElement.clientWidth)
-   );
- };
-//all available sections to be active
-  let j = 0;
-  for (let item of menu_items){
-    j = j + 1;
-    let section_active = document.getElementsByClassName("temp");
-    window.addEventListener("scroll", function(event){
-      if(in_view(item)){
-        section_active[j].classList.add("your-active-class")
-      }
-    }, false);
+    const section_active = document.getElementsByClassName("temp");
+    for (let target_element of section_active) {
+      let to_be_active = target_element;
+      window.addEventListener("scroll", function(event){
+        if (isInViewport(to_be_active)){
+          to_be_active.classList.add("your-active-class");
+        }
+      },false);
   }
 }
 check_viewport();
@@ -83,16 +94,3 @@ var get_target = function() {
   }
 }
 get_target()
-
-// loop through array and create navbar
-let i = 0;
-for (let item of menu_items){
-    // create unordered list and add to navbar 'ul'
-    i = i + 1;
-    let li_item = document.createElement("li");
-    li_item.id = "list" + i;
-    li_item.className = "nav-item";
-    li_item.innerHTML += item;
-    li_item.setAttribute("data-id", item);
-    nav_ul.appendChild(li_item);
-}
